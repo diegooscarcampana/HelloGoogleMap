@@ -6,7 +6,7 @@
     <script type="text/javascript">
     document.addEventListener("deviceready", function() {
       var div = document.getElementById("map_canvas");
-
+      var currentPositionMarker;
       // If your app runs this program on browser,
       // you need to set `API_KEY_FOR_BROWSER_RELEASE` and `API_KEY_FOR_BROWSER_DEBUG`
       // before `plugin.google.maps.Map.getMap()`
@@ -45,11 +45,23 @@
           snippet: "This plugin is awesome!",
           animation: plugin.google.maps.Animation.BOUNCE
         });
-
+  
         // Show the info window
         marker.showInfoWindow();
+        
+        this.watchID = navigator.geolocation.watchPosition(function (position){
+            var lat=position.coords.latitude;
+            var lang=position.coords.longitude;
 
-      });
+            if (currentPositionMarker!=null)
+              currentPositionMarker.setmap(null);
+
+            var myCenter=new google.maps.LatLng(lat,lang);
+            currentPositionMarker=new google.maps.Marker({position:myCenter});
+            currentPositionMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+            currentPositionMarker.setMap(map);
+				  },function(error) {alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n'); 
+		    });
 
     }, false);
 
