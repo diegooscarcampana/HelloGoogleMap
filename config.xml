@@ -23,6 +23,7 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <plugin name="cordova-plugin-geolocation" version="2.1.0" />  
     <preference name="phonegap-version" value="cli-8.0.0" />
     <preference name="android-minSdkVersion" value="19" />
     <plugin name="cordova-plugin-googlemaps">
